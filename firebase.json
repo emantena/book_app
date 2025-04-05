@@ -1,0 +1,21 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "book-club-4fe07",
+                    "appId": "1:657145412803:android:e1643a6e0f6454a2a9f676",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/core/firebase/firebase_options.dart": {
+                    "projectId": "book-club-4fe07",
+                    "configurations": {
+                        "android": "1:657145412803:android:e1643a6e0f6454a2a9f676"
+                    }
+                }
+            }
+        }
+    }
+}

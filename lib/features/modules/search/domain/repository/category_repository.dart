@@ -1,0 +1,9 @@
+import 'package:book_app/core/data/error/failure.dart';
+import 'package:book_app/core/domain/usecase/base_use_case.dart';
+import 'package:dartz/dartz.dart';
+
+import '../entities/category_result_item.dart';
+
+abstract class CategoryRepository {
+  Future<Either<Failure, List<CategoryResultItem>>> list(NoParameters p);
+}
