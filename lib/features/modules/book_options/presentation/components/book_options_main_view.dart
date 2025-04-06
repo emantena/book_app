@@ -1,16 +1,16 @@
-import 'package:book_app/features/modules/book_options/presentation/components/actions/read_status/change_read_status.dart';
-import 'package:book_app/features/modules/book_options/presentation/components/actions/read_history/read_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../controllers/bloc/book_options_bloc.dart';
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_values.dart';
+import '../../../../../core/ui/components/image_with_shimmer.dart';
+import '../../../../../core/ui/components/read_indicator.dart';
+import '../../../../../data/models/dto/shelf_item_dto.dart';
+import '../../../../../domain/entities/reading_status.dart';
+import '../../../../../presentation/blocs/book_options/book_options_bloc.dart';
+import 'actions/read_history/read_history.dart';
+import 'actions/read_status/change_read_status.dart';
 import 'book_options_action_button.dart';
-import '../../../../presentation/components/image_with_shimmer.dart';
-import '../../../../presentation/components/read_indicator.dart';
-import '../../../../../core/domain/dto/shelf_item_dto.dart';
-import '../../../../../core/domain/enums/reading_status.dart';
-import '../../../../../core/resources/app_colors.dart';
-import '../../../../../core/resources/app_values.dart';
 
 class BookOptionsMainView extends StatelessWidget {
   final ShelfItemDto bookItem;
@@ -61,8 +61,7 @@ class BookOptionsMainView extends StatelessWidget {
                                       color: AppColors.primaryText,
                                     ),
                                   ),
-                                  if (bookItem.readingStatus ==
-                                      ReadingStatus.reading) ...{
+                                  if (bookItem.readingStatus == ReadingStatus.reading) ...{
                                     ReadIndicator(
                                       totalPagesToRead: bookItem.pages,
                                       totalReadPages: bookItem.currentPage,

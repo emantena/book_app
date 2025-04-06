@@ -1,6 +1,7 @@
-import 'package:book_app/core/resources/app_colors.dart';
-import 'package:book_app/core/resources/app_values.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_values.dart';
 
 Widget inputForm({required BuildContext context, required String label}) {
   final size = MediaQuery.of(context).size;

@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import '../data/network/api_constants.dart';
-import '../domain/enums/reading_status.dart';
-import '../resources/app_colors.dart';
-import '../resources/app_strings.dart';
+import '../../domain/entities/reading_status.dart';
+import '../config/app_colors.dart';
+import '../config/app_strings.dart';
+import '../network/api_constants.dart';
 
 String getImageWithoutCurl(String? imageLinks) {
   if (imageLinks == null || imageLinks == '') {

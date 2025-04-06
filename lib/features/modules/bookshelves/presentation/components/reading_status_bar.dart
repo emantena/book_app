@@ -1,11 +1,11 @@
-import 'package:book_app/core/utils/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/domain/enums/reading_status.dart';
-import '../../../../../core/resources/app_strings.dart';
-import '../../../../../core/resources/app_values.dart';
-import '../controllers/bloc/bookshelf_bloc.dart';
+import '../../../../../core/config/app_strings.dart';
+import '../../../../../core/config/app_values.dart';
+import '../../../../../core/utils/functions.dart';
+import '../../../../../domain/entities/reading_status.dart';
+import '../../../../../presentation/blocs/bookshelf/bookshelf_bloc.dart';
 
 class ReadingStatusBar extends StatefulWidget {
   const ReadingStatusBar({super.key});
@@ -42,10 +42,7 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
             ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.read),
-                label: AppStrings.read,
-                index: 1,
-                readingStatus: ReadingStatus.read),
+                iconColor: getColorByReadStatus(ReadingStatus.read), label: AppStrings.read, index: 1, readingStatus: ReadingStatus.read),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
                 iconColor: getColorByReadStatus(ReadingStatus.wantToRead),

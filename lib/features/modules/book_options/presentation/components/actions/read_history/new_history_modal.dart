@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../controllers/bloc/book_options_bloc.dart';
-import '../../../../../../presentation/components/form/input_field.dart';
-import '../../../../../../../core/domain/dto/shelf_item_dto.dart';
+import '../../../../../../../core/ui/components/input_field.dart';
+import '../../../../../../../data/models/dto/shelf_item_dto.dart';
+import '../../../../../../../presentation/blocs/book_options/book_options_bloc.dart';
 
 class NewHistoryModal extends StatefulWidget {
   final ShelfItemDto bookItem;

@@ -1,11 +1,12 @@
-import 'package:book_app/core/resources/app_values.dart';
-import 'package:book_app/features/modules/profile/presentation/components/avatar_image.dart';
-import 'package:book_app/features/modules/profile/presentation/components/input_form.dart';
-import 'package:book_app/features/modules/profile/presentation/components/logout_button.dart';
-import 'package:book_app/features/modules/profile/presentation/controller/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../../core/config/app_values.dart';
+import '../../../../../presentation/blocs/profile/profile_cubit.dart';
+import 'avatar_image.dart';
+import 'input_form.dart';
+import 'logout_button.dart';
 
 class ProfileForm extends StatelessWidget {
   const ProfileForm({super.key});

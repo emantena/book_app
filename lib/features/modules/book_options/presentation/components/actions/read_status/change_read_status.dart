@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../../core/config/app_values.dart';
+import '../../../../../../../data/models/dto/shelf_item_dto.dart';
+import '../../../../../../../domain/entities/reading_status.dart';
+import '../../../../../../../presentation/blocs/book_options/book_options_bloc.dart';
 import '../../book_options_action_button.dart';
-import '../../../controllers/bloc/book_options_bloc.dart';
-import '../../../../../../../core/domain/dto/shelf_item_dto.dart';
-import '../../../../../../../core/domain/enums/reading_status.dart';
-import '../../../../../../../core/resources/app_values.dart';
 import '../../../../../../../core/utils/functions.dart';
 
 class ChangeReadStatus extends StatelessWidget {
@@ -34,16 +34,11 @@ class ChangeReadStatus extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _buildListTile(
-                        context, bloc, bookItem.bookId, ReadingStatus.read),
-                    _buildListTile(context, bloc, bookItem.bookId,
-                        ReadingStatus.wantToRead),
-                    _buildListTile(
-                        context, bloc, bookItem.bookId, ReadingStatus.reading),
-                    _buildListTile(context, bloc, bookItem.bookId,
-                        ReadingStatus.rereading),
-                    _buildListTile(context, bloc, bookItem.bookId,
-                        ReadingStatus.abandoned),
+                    _buildListTile(context, bloc, bookItem.bookId, ReadingStatus.read),
+                    _buildListTile(context, bloc, bookItem.bookId, ReadingStatus.wantToRead),
+                    _buildListTile(context, bloc, bookItem.bookId, ReadingStatus.reading),
+                    _buildListTile(context, bloc, bookItem.bookId, ReadingStatus.rereading),
+                    _buildListTile(context, bloc, bookItem.bookId, ReadingStatus.abandoned),
                   ],
                 ),
               );

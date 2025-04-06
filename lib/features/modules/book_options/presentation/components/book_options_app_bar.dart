@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/resources/app_colors.dart';
-import '../../../../../core/resources/app_values.dart';
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_values.dart';
 
 class BookOptionsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BookOptionsAppBar({super.key});

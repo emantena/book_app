@@ -1,9 +1,10 @@
-import 'package:book_app/core/resources/app_colors.dart';
-import 'package:book_app/core/resources/app_routes.dart';
-import 'package:book_app/core/resources/app_values.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_routes.dart';
+import '../../../../../core/config/app_values.dart';
 
 class AvatarImage extends StatefulWidget {
   final String? photo;
@@ -112,8 +113,7 @@ void showBottonSheet({required BuildContext context}) {
             TextButton(
               onPressed: () async {
                 final picker = ImagePicker();
-                final file =
-                    await picker.pickImage(source: ImageSource.gallery);
+                final file = await picker.pickImage(source: ImageSource.gallery);
 
                 if (file == null) {
                   // context.pushNamed(

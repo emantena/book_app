@@ -1,15 +1,15 @@
-import 'package:book_app/features/modules/book_options/presentation/components/actions/read_history/edit_history_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'new_history_modal.dart';
+import '../../../../../../../core/config/app_values.dart';
+import '../../../../../../../core/ui/components/primary_button.dart';
+import '../../../../../../../core/ui/components/read_indicator.dart';
+import '../../../../../../../data/models/dto/read_history_dto.dart';
+import '../../../../../../../data/models/dto/shelf_item_dto.dart';
+import '../../../../../../../presentation/blocs/book_options/book_options_bloc.dart';
+import '../../../../../../../presentation/widgets/book_options/edit_history_modal.dart';
 import '../../book_options_action_button.dart';
-import '../../../controllers/bloc/book_options_bloc.dart';
-import '../../../../../../presentation/components/read_indicator.dart';
-import '../../../../../../presentation/components/button/primary_button.dart';
-import '../../../../../../../core/resources/app_values.dart';
-import '../../../../../../../core/domain/dto/shelf_item_dto.dart';
-import '../../../../../../../core/domain/dto/read_history_dto.dart';
+import 'new_history_modal.dart';
 
 class ReadHistory extends StatelessWidget {
   final BookOptionsBloc bloc;
@@ -67,8 +67,7 @@ class ReadHistory extends StatelessWidget {
                       controller: scrollController,
                       itemCount: bookItem.readHistory.length,
                       itemBuilder: (ctx, index) {
-                        final formattedDate = DateFormat('dd/MM/yyyy')
-                            .format(bookItem.readHistory[index].dateRead);
+                        final formattedDate = DateFormat('dd/MM/yyyy').format(bookItem.readHistory[index].dateRead);
                         return Container(
                           margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
@@ -83,8 +82,7 @@ class ReadHistory extends StatelessWidget {
                             child: Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(formattedDate),
                                     IconButton(
@@ -101,8 +99,7 @@ class ReadHistory extends StatelessWidget {
                                 ),
                                 ReadIndicator(
                                   totalPagesToRead: bookItem.pages,
-                                  totalReadPages:
-                                      bookItem.readHistory[index].pages!,
+                                  totalReadPages: bookItem.readHistory[index].pages!,
                                 ),
                               ],
                             ),

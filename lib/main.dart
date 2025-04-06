@@ -1,10 +1,11 @@
 // lib/main.dart
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:book_app/core/app/app_module.dart';
-import 'package:book_app/core/dependency_injection/di_setup.dart';
-import 'package:book_app/core/firebase/options/firebase_options.dart';
-import 'package:book_app/core/utils/environment_provider.dart';
+
+import 'core/config/environment_provider.dart';
+import 'core/config/firebase_options.dart';
+import 'core/di/di_setup.dart';
+import 'core/ui/app_module.dart';
 
 Future<void> main() async {
   // Garante que os widgets estão inicializados

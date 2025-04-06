@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/resources/app_colors.dart';
-import '../controllers/bloc/search_bloc/search_bloc.dart';
-import '../controllers/cubit/category_list_cubit/category_cubit.dart';
-import '../../../../presentation/components/loading_indicator.dart';
+
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/ui/components/loading_indicator.dart';
+import '../../../../../presentation/blocs/category/category_cubit.dart';
+import '../../../../../presentation/blocs/search/search_bloc.dart';
 
 /// Widget que exibe uma grade de categorias de livros para seleção
 class CategoryList extends StatefulWidget {
@@ -73,9 +74,7 @@ class _CategoryListState extends State<CategoryList> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
-                  context
-                      .read<SearchBloc>()
-                      .add(SearchByCategory(category.name));
+                  context.read<SearchBloc>().add(SearchByCategory(category.name));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

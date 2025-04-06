@@ -1,5 +1,6 @@
-import 'package:book_app/core/data/network/api_constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../core/network/api_constants.dart';
 
 class NoResults extends StatelessWidget {
   const NoResults({

@@ -1,9 +1,10 @@
-import 'package:book_app/core/resources/app_colors.dart';
-import 'package:book_app/core/resources/app_strings.dart';
-import 'package:book_app/core/resources/app_values.dart';
-import 'package:book_app/features/modules/search/presentation/controllers/bloc/search_bloc/search_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../core/config/app_colors.dart';
+import '../../../../../core/config/app_strings.dart';
+import '../../../../../core/config/app_values.dart';
+import '../../../../../presentation/blocs/search/search_bloc.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({
