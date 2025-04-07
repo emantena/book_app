@@ -7,7 +7,7 @@ import '../../../../../core/ui/components/image_with_shimmer.dart';
 import '../../../../../core/ui/components/read_indicator.dart';
 import '../../../../../data/models/dto/shelf_item_dto.dart';
 import '../../../../../domain/entities/reading_status.dart';
-import '../../../../../presentation/blocs/book_options/book_options_bloc.dart';
+import '../../../../../presentation/blocs/books/book_options/book_options_bloc.dart';
 import 'actions/read_history/read_history.dart';
 import 'actions/read_status/change_read_status.dart';
 import 'book_options_action_button.dart';

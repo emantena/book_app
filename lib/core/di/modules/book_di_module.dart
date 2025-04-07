@@ -11,9 +11,9 @@ import '../../../domain/usecases/get_book_details_usecase.dart';
 import '../../../domain/usecases/load_book_usecase.dart';
 import '../../../domain/usecases/set_read_history_usecase.dart';
 import '../../../domain/usecases/show_bookshelf_usecase.dart';
-import '../../../presentation/blocs/book_detail/book_detail_bloc.dart';
-import '../../../presentation/blocs/book_options/book_options_bloc.dart';
-import '../../../presentation/blocs/bookshelf/bookshelf_bloc.dart';
+import '../../../presentation/blocs/books/book_detail/book_detail_bloc.dart';
+import '../../../presentation/blocs/books/book_options/book_options_bloc.dart';
+import '../../../presentation/blocs/books/bookshelf/bookshelf_bloc.dart';
 
 class BookDiModule {
   static Future<void> init(GetIt sl) async {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/ui/components/loading_indicator.dart';
-import '../../../../../presentation/blocs/category/category_cubit.dart';
+import '../../../../../presentation/blocs/books/category/category_cubit.dart';
 import '../../../../../presentation/blocs/search/search_bloc.dart';
 
 /// Widget que exibe uma grade de categorias de livros para seleção

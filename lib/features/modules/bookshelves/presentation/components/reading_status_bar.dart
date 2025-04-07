@@ -5,7 +5,7 @@ import '../../../../../core/config/app_strings.dart';
 import '../../../../../core/config/app_values.dart';
 import '../../../../../core/utils/functions.dart';
 import '../../../../../domain/entities/reading_status.dart';
-import '../../../../../presentation/blocs/bookshelf/bookshelf_bloc.dart';
+import '../../../../../presentation/blocs/books/bookshelf/bookshelf_bloc.dart';
 
 class ReadingStatusBar extends StatefulWidget {
   const ReadingStatusBar({super.key});

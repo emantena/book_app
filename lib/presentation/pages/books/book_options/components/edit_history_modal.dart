@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../../core/ui/components/input_field.dart';
-import '../../../../../../../data/models/dto/shelf_item_dto.dart';
-import '../../../../../../../presentation/blocs/books/book_options/book_options_bloc.dart';
+import '../../../../../core/ui/components/input_field.dart';
+import '../../../../../data/models/dto/read_history_dto.dart';
+import '../../../../blocs/books/book_options/book_options_bloc.dart';
 
-class NewHistoryModal extends StatefulWidget {
-  final ShelfItemDto bookItem;
+class EditHistoryModal extends StatefulWidget {
+  final ReadHistoryDto history;
   final BookOptionsBloc bloc;
+  final int totalPages;
 
-  const NewHistoryModal({
+  const EditHistoryModal({
     super.key,
     required this.bloc,
-    required this.bookItem,
+    required this.history,
+    required this.totalPages,
   });
 
   @override
-  NewHistoryModalState createState() => NewHistoryModalState();
+  EditHistoryModalState createState() => EditHistoryModalState();
 }
 
-class NewHistoryModalState extends State<NewHistoryModal> {
+class EditHistoryModalState extends State<EditHistoryModal> {
   final TextEditingController _controller = TextEditingController();
   String _selectedOption = 'pages';
   String? _errorMessage;
 
   @override
+  void initState() {
+    super.initState();
+    _controller.text = widget.history.pages.toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Novo Histórico'),
+      title: const Text('Editar Histórico'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -91,9 +99,9 @@ class NewHistoryModalState extends State<NewHistoryModal> {
         TextButton(
           onPressed: () {
             final inputValue = int.tryParse(_controller.text);
-            if (_selectedOption == 'pages' && (inputValue == null || inputValue > widget.bookItem.pages)) {
+            if (_selectedOption == 'pages' && (inputValue == null || inputValue > widget.totalPages)) {
               setState(() {
-                _errorMessage = 'O número de páginas não pode ser maior que ${widget.bookItem.pages}.';
+                _errorMessage = 'O número de páginas não pode ser maior que ${widget.totalPages}.';
               });
             } else if (_selectedOption == 'percentage' && (inputValue == null || inputValue > 100)) {
               setState(() {
@@ -113,13 +121,14 @@ class NewHistoryModalState extends State<NewHistoryModal> {
 
               widget.bloc.add(
                 SetReadHistoryEvent(
-                  widget.bookItem.bookId,
+                  widget.history.bookId,
                   pages,
                   percentage,
-                  null,
+                  widget.history.id,
                 ),
               );
 
+              Navigator.of(context).pop();
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             }

@@ -5,8 +5,8 @@ import '../../../../../../../core/config/app_values.dart';
 import '../../../../../../../core/ui/components/read_indicator.dart';
 import '../../../../../../../data/models/dto/read_history_dto.dart';
 import '../../../../../../../data/models/dto/shelf_item_dto.dart';
-import '../../../../../../../presentation/blocs/book_options/book_options_bloc.dart';
-import '../../../../../../../presentation/widgets/book_options/edit_history_modal.dart';
+import '../../../../../../../presentation/blocs/books/book_options/book_options_bloc.dart';
+import '../../../../../../../presentation/pages/books/book_options/components/edit_history_modal.dart';
 import '../../book_options_action_button.dart';
 
 class ReadMeta extends StatelessWidget {

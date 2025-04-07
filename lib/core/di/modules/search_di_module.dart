@@ -7,7 +7,7 @@ import '../../../data/sources/search_remote_data_source.dart';
 import '../../../domain/interfaces/repositories/i_search_repository.dart';
 import '../../../domain/usecases/category_list_usecase.dart';
 import '../../../domain/usecases/search_usecase.dart';
-import '../../../presentation/blocs/category/category_cubit.dart';
+import '../../../presentation/blocs/books/category/category_cubit.dart';
 import '../../../presentation/blocs/search/search_bloc.dart';
 
 class SearchDiModule {

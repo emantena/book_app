@@ -4,9 +4,9 @@ import '../../../data/sources/forgot_password_datasource.dart';
 import '../../../domain/usecases/forgot_password_usecase.dart';
 import '../../../domain/usecases/sign_in_usecase.dart';
 import '../../../domain/usecases/sign_up_usecase.dart';
-import '../../../presentation/blocs/forgot_password/forgot_password_cubit.dart';
-import '../../../presentation/blocs/sign_in/sign_in_cubit.dart';
-import '../../../presentation/blocs/sign_up/sign_up_cubit.dart';
+import '../../../presentation/blocs/auth/forgot_password/forgot_password_cubit.dart';
+import '../../../presentation/blocs/auth/sign_in/sign_in_cubit.dart';
+import '../../../presentation/blocs/auth/sign_up/sign_up_cubit.dart';
 import '../../../presentation/blocs/splash/splash_cubit.dart';
 
 class AuthDiModule {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../../core/config/app_values.dart';
 import '../../../../../../../data/models/dto/shelf_item_dto.dart';
 import '../../../../../../../domain/entities/reading_status.dart';
-import '../../../../../../../presentation/blocs/book_options/book_options_bloc.dart';
+import '../../../../../../../presentation/blocs/books/book_options/book_options_bloc.dart';
 import '../../book_options_action_button.dart';
 import '../../../../../../../core/utils/functions.dart';
 
