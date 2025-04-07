@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
 
-import '../../core/firebase/exceptions/log_out_failure.dart';
-import '../../core/firebase/exceptions/sign_in_failure.dart';
-import '../../core/firebase/exceptions/sign_up_with_email_and_password_failure.dart';
+import '../../core/error/firebase_exceptions/log_out_failure.dart';
+import '../../core/error/firebase_exceptions/sign_in_failure.dart';
+import '../../core/error/firebase_exceptions/sign_up_with_email_and_password_failure.dart';
 import '../../domain/interfaces/repositories/i_authentication_repository.dart';
 import '../models/user_model.dart';
 

@@ -1,4 +1,4 @@
-import 'package:book_app/core/data/error/failure.dart';
+import 'package:book_app/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 

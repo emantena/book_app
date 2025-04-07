@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../read_history.dart';
+import '../read_history_model.dart';
 
 class ReadHistoryDto extends Equatable {
   final String bookId;
@@ -37,8 +37,8 @@ class ReadHistoryDto extends Equatable {
     );
   }
 
-  ReadHistory toModel() {
-    return ReadHistory(
+  ReadHistoryModel toModel() {
+    return ReadHistoryModel(
       id: id!,
       readDate: dateRead,
       page: pages ?? 0,

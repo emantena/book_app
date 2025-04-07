@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../core/config/app_constants.dart';
-import '../../core/data/error/failure.dart';
+import '../../core/error/failure.dart';
 import '../../domain/entities/reading_status.dart';
 import '../../domain/interfaces/repositories/i_shelf_item_repository.dart';
 import '../models/dto/read_history_dto.dart';
-import '../models/shelf_item.dart';
+import '../models/shelf_item_model.dart';
 import '../models/dto/shelf_item_dto.dart';
 
 class ShelfItemRepository implements IShelfItemRepository {
@@ -14,7 +14,8 @@ class ShelfItemRepository implements IShelfItemRepository {
   ShelfItemRepository(this._firestore);
 
   @override
-  Future<void> updatePagesRead(String bookId, String userId, int pagesRead) async {
+  Future<void> updatePagesRead(
+      String bookId, String userId, int pagesRead) async {
     await _firestore
         .collection(FirebaseConstants.bookShelfCollection)
         .doc(userId)
@@ -79,9 +80,10 @@ class ShelfItemRepository implements IShelfItemRepository {
     return book.first;
   }
 
-  List<ShelfItemDto> _mapQuerySnapshotToShelfItems(QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+  List<ShelfItemDto> _mapQuerySnapshotToShelfItems(
+      QuerySnapshot<Map<String, dynamic>> querySnapshot) {
     return querySnapshot.docs
-        .map((doc) => ShelfItem.fromJson(doc.data()))
+        .map((doc) => ShelfItemModel.fromJson(doc.data()))
         .map(
           (book) => ShelfItemDto(
             title: book.title,

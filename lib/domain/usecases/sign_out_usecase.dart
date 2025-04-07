@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 
 import 'base_use_case.dart';
 import '../interfaces/repositories/i_authentication_repository.dart';
-import '../../core/data/error/failure.dart';
-import '../../core/firebase/exceptions/log_out_failure.dart';
+import '../../core/error/failure.dart';
+import '../../core/error/firebase_exceptions/log_out_failure.dart';
 
 class SignOutUsecase extends BaseUseCase<NoParameters, NoParameters> {
   final IAuthenticationRepository _authRepository;

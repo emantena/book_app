@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/data/error/exceptions.dart';
-import '../../core/data/error/failure.dart';
+import '../../core/error/exceptions.dart';
+import '../../core/error/failure.dart';
 import '../../domain/entities/book_detail.dart';
 import '../../domain/interfaces/repositories/i_book_detail_repository.dart';
-import '../sources/book_detail_datasource.dart';
+import '../sources/remote/book_detail_datasource.dart';
 
 class BookDetailsRepository extends IBookDetailRepository {
   final IBookDetailDatasource _datasource;

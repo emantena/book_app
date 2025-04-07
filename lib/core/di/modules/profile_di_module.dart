@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../../domain/usecases/photo_usecase.dart';
 import '../../../domain/usecases/profile_usecase.dart';
 import '../../../domain/usecases/sign_out_usecase.dart';
-import '../../../presentation/blocs/profile/profile_cubit.dart';
+import '../../../features/profile/presentation/bloc/profile_cubit.dart';
 
 /// Module for profile related dependencies
 class ProfileDiModule {

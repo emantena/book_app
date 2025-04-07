@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'base_use_case.dart';
 import '../interfaces/repositories/i_authentication_repository.dart';
 import '../interfaces/repositories/i_user_repository.dart';
-import '../../core/data/error/failure.dart';
-import '../../core/firebase/exceptions/sign_in_failure.dart';
+import '../../core/error/failure.dart';
+import '../../core/error/firebase_exceptions/sign_in_failure.dart';
 import '../../data/models/sign_in_model.dart';
 
 class SignInUsecase extends BaseUseCase<bool, SignInModel> {

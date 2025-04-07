@@ -2,7 +2,7 @@
 import 'package:get_it/get_it.dart';
 
 import '../../../data/repositories/book_detail_repository_impl.dart';
-import '../../../data/sources/book_detail_datasource.dart';
+import '../../../data/sources/remote/book_detail_datasource.dart';
 import '../../../domain/interfaces/repositories/i_book_detail_repository.dart';
 import '../../../domain/usecases/add_book_shelf_usecase.dart';
 import '../../../domain/usecases/change_read_status_usecase.dart';
@@ -11,9 +11,9 @@ import '../../../domain/usecases/get_book_details_usecase.dart';
 import '../../../domain/usecases/load_book_usecase.dart';
 import '../../../domain/usecases/set_read_history_usecase.dart';
 import '../../../domain/usecases/show_bookshelf_usecase.dart';
-import '../../../presentation/blocs/books/book_detail/book_detail_bloc.dart';
-import '../../../presentation/blocs/books/book_options/book_options_bloc.dart';
-import '../../../presentation/blocs/books/bookshelf/bookshelf_bloc.dart';
+import '../../../features/books/presentation/blocs/book_detail/book_detail_bloc.dart';
+import '../../../features/books/presentation/blocs/book_options/book_options_bloc.dart';
+import '../../../features/bookshelves/presentation/bloc/bookshelf_bloc.dart';
 
 class BookDiModule {
   static Future<void> init(GetIt sl) async {

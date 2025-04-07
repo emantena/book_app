@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../models/user_model.dart';
-import '../../core/data/error/failure.dart';
+import '../../core/error/failure.dart';
 import '../../domain/interfaces/repositories/i_authentication_repository.dart';
 import '../../domain/interfaces/repositories/i_user_repository.dart';
 

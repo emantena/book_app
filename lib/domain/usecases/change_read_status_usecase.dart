@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/data/error/failure.dart';
-import '../interfaces/repositories/i_shelf_item_service.dart';
+import '../../core/error/failure.dart';
+import '../interfaces/services/i_shelf_item_service.dart';
 import 'base_use_case.dart';
-import '../../data/models/change_read_status_request.dart';
+import '../../data/models/request/change_read_status_request.dart';
 import '../../data/models/dto/shelf_item_dto.dart';
 
 class ChangeReadStatusUsecase extends BaseUseCase<ShelfItemDto, ChangeReadStatusRequest> {

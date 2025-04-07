@@ -1,6 +1,6 @@
 import 'read_history_dto.dart';
-import '../read_history.dart';
-import '../shelf_item.dart';
+import '../read_history_model.dart';
+import '../shelf_item_model.dart';
 import '../../../domain/entities/reading_status.dart';
 
 class ShelfItemDto {
@@ -26,7 +26,7 @@ class ShelfItemDto {
     this.readHistory = const [],
   });
 
-  static fromModel(ShelfItem p) {
+  static fromModel(ShelfItemModel p) {
     return ShelfItemDto(
       title: p.title,
       bookId: p.bookId,
@@ -40,8 +40,8 @@ class ShelfItemDto {
     );
   }
 
-  static ShelfItem toModel(ShelfItemDto p) {
-    return ShelfItem(
+  static ShelfItemModel toModel(ShelfItemDto p) {
+    return ShelfItemModel(
       bookId: p.bookId,
       title: p.title,
       readingStatus: p.readingStatus,
@@ -52,7 +52,7 @@ class ShelfItemDto {
       currentPage: p.currentPage,
       readHistory: p.readHistory
           .map(
-            (e) => ReadHistory(
+            (e) => ReadHistoryModel(
               id: e.id!,
               readDate: e.dateRead,
               page: e.pages!,

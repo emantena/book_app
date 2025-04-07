@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../core/data/error/failure.dart';
+import '../../../core/error/failure.dart';
 import '../../entities/search_result_item.dart';
 
 abstract class ISearchRepository {

@@ -1,20 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../core/data/error/failure.dart';
+import '../../core/error/failure.dart';
 import '../../domain/entities/reading_status.dart';
-import '../models/book_shelf.dart';
+import '../models/book_shelf_model.dart';
 import '../models/dto/book_shelf_dto.dart';
 import '../models/dto/read_history_dto.dart';
 import '../models/dto/shelf_item_dto.dart';
-import '../models/shelf_item.dart';
+import '../models/shelf_item_model.dart';
 
 abstract class IBookShelfRepository {
-  Future<bool> addBook(ShelfItem shelfItem, String userId);
+  Future<bool> addBook(ShelfItemModel shelfItem, String userId);
   Future<BookShelfDto> getBookShelf(String userId);
-  Future<BookShelfDto> getBookShelfByReadingStatus(String userId, ReadingStatus status);
+  Future<BookShelfDto> getBookShelfByReadingStatus(
+      String userId, ReadingStatus status);
   Future<bool> existBookShelf({required String userId});
   Future<void> createBookShelf({required String userId});
-  Future<void> updateBook(ShelfItem shelfItem, String userId);
+  Future<void> updateBook(ShelfItemModel shelfItem, String userId);
   Future<void> updatePagesRead(String userId, int pages);
   Future<void> deleteBook(String userId, String bookId);
 }
@@ -28,9 +29,13 @@ class BookShelfRepository extends IBookShelfRepository {
   BookShelfRepository(this._firestore);
 
   @override
-  Future<bool> addBook(ShelfItem shelfItem, String userId) async {
+  Future<bool> addBook(ShelfItemModel shelfItem, String userId) async {
     try {
-      await _firestore.collection(bookShelfCollection).doc(userId).collection(booksCollection).add(shelfItem.toJson());
+      await _firestore
+          .collection(bookShelfCollection)
+          .doc(userId)
+          .collection(booksCollection)
+          .add(shelfItem.toJson());
       return true;
     } catch (e) {
       throw DatabaseFailure(e.toString());
@@ -40,13 +45,18 @@ class BookShelfRepository extends IBookShelfRepository {
   @override
   Future<BookShelfDto> getBookShelf(String userId) async {
     try {
-      final bookShelfDoc = await _firestore.collection(bookShelfCollection).doc(userId).get();
+      final bookShelfDoc =
+          await _firestore.collection(bookShelfCollection).doc(userId).get();
 
       if (!bookShelfDoc.exists) {
         return BookShelfDto(pagesRead: 0, books: []);
       }
 
-      final booksQuerySnapshot = await _firestore.collection(bookShelfCollection).doc(userId).collection(booksCollection).get();
+      final booksQuerySnapshot = await _firestore
+          .collection(bookShelfCollection)
+          .doc(userId)
+          .collection(booksCollection)
+          .get();
 
       final books = _mapQuerySnapshotToShelfItems(booksQuerySnapshot);
 
@@ -61,22 +71,28 @@ class BookShelfRepository extends IBookShelfRepository {
 
   @override
   Future<bool> existBookShelf({required String userId}) async {
-    var result = await _firestore.collection(bookShelfCollection).doc(userId).get();
+    var result =
+        await _firestore.collection(bookShelfCollection).doc(userId).get();
 
     return result.exists;
   }
 
   @override
   Future<void> createBookShelf({required String userId}) async {
-    const newBookShelf = BookShelf(pagesRead: 0);
+    const newBookShelf = BookShelfModel(pagesRead: 0);
 
-    await _firestore.collection(bookShelfCollection).doc(userId).set(newBookShelf.toJson());
+    await _firestore
+        .collection(bookShelfCollection)
+        .doc(userId)
+        .set(newBookShelf.toJson());
   }
 
   @override
-  Future<BookShelfDto> getBookShelfByReadingStatus(String userId, ReadingStatus status) async {
+  Future<BookShelfDto> getBookShelfByReadingStatus(
+      String userId, ReadingStatus status) async {
     try {
-      final bookShelfDoc = await _firestore.collection(bookShelfCollection).doc(userId).get();
+      final bookShelfDoc =
+          await _firestore.collection(bookShelfCollection).doc(userId).get();
 
       if (!bookShelfDoc.exists) {
         return BookShelfDto(pagesRead: 0, books: []);
@@ -101,7 +117,7 @@ class BookShelfRepository extends IBookShelfRepository {
   }
 
   @override
-  Future<void> updateBook(ShelfItem shelfItem, String userId) async {
+  Future<void> updateBook(ShelfItemModel shelfItem, String userId) async {
     try {
       final bookDoc = await _firestore
           .collection(bookShelfCollection)
@@ -129,7 +145,7 @@ class BookShelfRepository extends IBookShelfRepository {
           throw const DatabaseFailure('BookShelf not found');
         }
 
-        final bookShelf = BookShelf.fromJson(value.data()!);
+        final bookShelf = BookShelfModel.fromJson(value.data()!);
         final totalPages = bookShelf.pagesRead + pages;
 
         value.reference.update({
@@ -141,8 +157,12 @@ class BookShelfRepository extends IBookShelfRepository {
 
   @override
   Future<void> deleteBook(String userId, String bookId) async {
-    final bookDoc =
-        await _firestore.collection(bookShelfCollection).doc(userId).collection(booksCollection).where('bookId', isEqualTo: bookId).get();
+    final bookDoc = await _firestore
+        .collection(bookShelfCollection)
+        .doc(userId)
+        .collection(booksCollection)
+        .where('bookId', isEqualTo: bookId)
+        .get();
 
     if (bookDoc.docs.isEmpty) {
       throw const DatabaseFailure('Book not found');
@@ -151,9 +171,10 @@ class BookShelfRepository extends IBookShelfRepository {
     await bookDoc.docs.first.reference.delete();
   }
 
-  List<ShelfItemDto> _mapQuerySnapshotToShelfItems(QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+  List<ShelfItemDto> _mapQuerySnapshotToShelfItems(
+      QuerySnapshot<Map<String, dynamic>> querySnapshot) {
     return querySnapshot.docs
-        .map((doc) => ShelfItem.fromJson(doc.data()))
+        .map((doc) => ShelfItemModel.fromJson(doc.data()))
         .map(
           (book) => ShelfItemDto(
             title: book.title,

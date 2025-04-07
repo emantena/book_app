@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../core/data/error/failure.dart';
+import '../../core/error/failure.dart';
 import '../interfaces/repositories/i_user_repository.dart';
 import 'base_use_case.dart';
 

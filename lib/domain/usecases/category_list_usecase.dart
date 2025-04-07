@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'base_use_case.dart';
-import '../../core/data/error/failure.dart';
+import '../../core/error/failure.dart';
 import '../../core/storage/cache_client.dart';
 import '../../data/models/category_model.dart';
 import '../../data/repositories/category_repository.dart';

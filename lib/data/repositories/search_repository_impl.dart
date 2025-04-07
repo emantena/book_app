@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../core/data/error/exceptions.dart';
-import '../../core/data/error/failure.dart';
+import '../../core/error/exceptions.dart';
+import '../../core/error/failure.dart';
 import '../../domain/entities/search_result_item.dart';
 import '../../domain/interfaces/repositories/i_search_repository.dart';
-import '../sources/search_remote_data_source.dart';
+import '../sources/remote/search_remote_data_source.dart';
 
 class SearchRepository extends ISearchRepository {
   final ISearchRemoteDataSource _baseSearchRemoteDataSource;
