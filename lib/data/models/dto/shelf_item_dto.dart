@@ -1,18 +1,21 @@
-import 'read_history_dto.dart';
-import '../read_history_model.dart';
-import '../shelf_item_model.dart';
 import '../../../domain/entities/reading_status.dart';
+import '../read_history_model.dart';
+import '../read_meta_model.dart';
+import '../shelf_item_model.dart';
+import 'read_history_dto.dart';
 
 class ShelfItemDto {
   final String bookId;
   final String imageUrl;
   final int pages;
-  final String title;
+
+  String title;
   ReadingStatus readingStatus;
   DateTime? startDate;
   DateTime? endDate;
   int currentPage;
   List<ReadHistoryDto> readHistory = [];
+  ReadMetaModel? readMeta;
 
   ShelfItemDto({
     this.title = '',
@@ -24,6 +27,7 @@ class ShelfItemDto {
     this.pages = 0,
     this.currentPage = 0,
     this.readHistory = const [],
+    this.readMeta,
   });
 
   static fromModel(ShelfItemModel p) {
@@ -37,6 +41,7 @@ class ShelfItemDto {
       endDate: p.endDate,
       currentPage: p.currentPage,
       readHistory: [],
+      readMeta: p.readMeta,
     );
   }
 
@@ -61,6 +66,7 @@ class ShelfItemDto {
             ),
           )
           .toList(),
+      readMeta: p.readMeta,
     );
   }
 }

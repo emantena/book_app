@@ -1,28 +1,39 @@
 part of 'bookshelf_bloc.dart';
 
 class BookshelfState extends Equatable {
-  final RequestStatus requestStatus;
   final BookShelfDto bookshelf;
+  final RequestStatus requestStatus;
   final String? errorMessage;
+  final bool showReadingGoal;
 
-  BookshelfState({
-    this.requestStatus = RequestStatus.loading,
-    BookShelfDto? bookshelf,
+  const BookshelfState({
+    required this.bookshelf,
+    required this.requestStatus,
     this.errorMessage,
-  }) : bookshelf = bookshelf ?? BookShelfDto(pagesRead: 0, books: []);
+    this.showReadingGoal = false,
+  });
+
+  factory BookshelfState.initial() {
+    return BookshelfState(
+      bookshelf: BookShelfDto.empty(),
+      requestStatus: RequestStatus.initial,
+    );
+  }
 
   BookshelfState copyWith({
-    RequestStatus? requestStatus,
     BookShelfDto? bookshelf,
+    RequestStatus? requestStatus,
     String? errorMessage,
+    bool? showReadingGoal,
   }) {
     return BookshelfState(
-      requestStatus: requestStatus ?? this.requestStatus,
       bookshelf: bookshelf ?? this.bookshelf,
+      requestStatus: requestStatus ?? this.requestStatus,
       errorMessage: errorMessage ?? this.errorMessage,
+      showReadingGoal: showReadingGoal ?? this.showReadingGoal,
     );
   }
 
   @override
-  List<Object?> get props => [requestStatus, bookshelf, errorMessage];
+  List<Object?> get props => [bookshelf, requestStatus, errorMessage, showReadingGoal];
 }

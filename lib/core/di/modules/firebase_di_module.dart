@@ -71,7 +71,7 @@ class FirebaseDiModule {
     );
 
     sl.registerLazySingleton<IBookShelfService>(
-      () => BookShelfService(sl(), sl()),
+      () => BookShelfService(sl(), sl(), sl()),
     );
   }
 }

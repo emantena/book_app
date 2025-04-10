@@ -49,7 +49,7 @@ class BookShelfRepository extends IBookShelfRepository {
           await _firestore.collection(bookShelfCollection).doc(userId).get();
 
       if (!bookShelfDoc.exists) {
-        return BookShelfDto(pagesRead: 0, books: []);
+        return BookShelfDto.empty();
       }
 
       final booksQuerySnapshot = await _firestore
@@ -95,7 +95,7 @@ class BookShelfRepository extends IBookShelfRepository {
           await _firestore.collection(bookShelfCollection).doc(userId).get();
 
       if (!bookShelfDoc.exists) {
-        return BookShelfDto(pagesRead: 0, books: []);
+        return BookShelfDto.empty();
       }
 
       final booksQuerySnapshot = await _firestore

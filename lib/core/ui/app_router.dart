@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/books/presentation/blocs/yearly_goals/yearly_goals_bloc.dart';
+import '../../features/books/presentation/pages/yearly_goals/yearly_goals_view.dart';
 import '../config/app_routes.dart';
 import '../../features/books/presentation/blocs/book_detail/book_detail_bloc.dart';
 import '../../features/books/presentation/blocs/book_options/book_options_bloc.dart';
@@ -40,6 +42,7 @@ const String bookOptionsPath = '/bookOptions/:bookId';
 const String bookshelvePath = '/bookshelve';
 const String profilePath = '/profile';
 const String photoPath = '/photo';
+const String yearlyGoalsPath = '/yearlyGoals';
 
 class AppRouter {
   final GetIt _sl;
@@ -110,6 +113,16 @@ class AppRouter {
                 child: BookOptionsView(
                   bookId: state.pathParameters['bookId']!,
                 ),
+              ),
+            ),
+          ),
+          GoRoute(
+            name: AppRoutes.yearlyGoalsRoute,
+            path: yearlyGoalsPath,
+            pageBuilder: (context, state) => MaterialPage(
+              child: BlocProvider(
+                create: (_) => _sl<YearlyGoalsBloc>(),
+                child: const YearlyGoalsView(),
               ),
             ),
           ),

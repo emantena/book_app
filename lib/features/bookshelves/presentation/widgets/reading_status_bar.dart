@@ -21,52 +21,103 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
     setState(() {
       _expandedIndex = _expandedIndex == index ? -1 : index;
     });
-    context.read<BookshelfBloc>().add(LoadBooksByStatus(status));
+
+    if (index < 6) {
+      context.read<BookshelfBloc>().add(LoadBooksByStatus(status));
+    } else {
+      // Notificar o componente pai para exibir as metas na mesma tela
+      context.read<BookshelfBloc>().add(const ToggleReadingGoalVisibility());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     const double spaceBetweenAnimateIcon = 18;
+    const double iconSize = 32;
+
+    // Removing the Center widget and simplifying the layout
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-              iconColor: getColorByReadStatus(null),
               label: AppStrings.all,
               index: 0,
               readingStatus: null,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(null),
+              ),
             ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.read), label: AppStrings.read, index: 1, readingStatus: ReadingStatus.read),
+              label: AppStrings.read,
+              index: 1,
+              readingStatus: ReadingStatus.read,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(ReadingStatus.read),
+              ),
+            ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.wantToRead),
-                label: AppStrings.wantToRead,
-                index: 2,
-                readingStatus: ReadingStatus.wantToRead),
+              label: AppStrings.wantToRead,
+              index: 2,
+              readingStatus: ReadingStatus.wantToRead,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(ReadingStatus.wantToRead),
+              ),
+            ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.reading),
-                label: AppStrings.reading,
-                index: 3,
-                readingStatus: ReadingStatus.reading),
+              label: AppStrings.reading,
+              index: 3,
+              readingStatus: ReadingStatus.reading,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(ReadingStatus.reading),
+              ),
+            ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.rereading),
-                label: AppStrings.rereading,
-                index: 4,
-                readingStatus: ReadingStatus.rereading),
+              label: AppStrings.rereading,
+              index: 4,
+              readingStatus: ReadingStatus.rereading,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(ReadingStatus.rereading),
+              ),
+            ),
             const SizedBox(width: spaceBetweenAnimateIcon),
             _animateIcon(
-                iconColor: getColorByReadStatus(ReadingStatus.abandoned),
-                label: AppStrings.abandoned,
-                index: 5,
-                readingStatus: ReadingStatus.abandoned),
+              label: AppStrings.abandoned,
+              index: 5,
+              readingStatus: ReadingStatus.abandoned,
+              icon: Icon(
+                Icons.bookmark,
+                size: iconSize,
+                color: getColorByReadStatus(ReadingStatus.abandoned),
+              ),
+            ),
+            const SizedBox(width: spaceBetweenAnimateIcon),
+            _animateIcon(
+              label: 'Meta de leitura',
+              index: 6,
+              readingStatus: null,
+              icon: const Icon(
+                Icons.bar_chart_sharp,
+                size: iconSize,
+                color: Color.fromARGB(255, 164, 193, 243),
+              ),
+            ),
           ],
         ),
       ),
@@ -74,10 +125,10 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
   }
 
   Widget _animateIcon({
-    required Color iconColor,
     required String label,
     required int index,
     required ReadingStatus? readingStatus,
+    required Icon icon,
   }) {
     bool isExpanded = _expandedIndex == index;
     return AnimatedContainer(
@@ -89,23 +140,25 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
         borderRadius: BorderRadius.circular(45),
       ),
       child: InkWell(
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
+        borderRadius: BorderRadius.circular(45),
         onTap: () => _toggleExpand(index, readingStatus),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.bookmark,
-              size: 32,
-              color: iconColor,
-            ),
+            icon,
             if (isExpanded)
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  label,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),

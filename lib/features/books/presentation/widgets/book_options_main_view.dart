@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/config/app_colors.dart';
-import '../../../../core/config/app_values.dart';
-import '../../../../core/ui/components/image_with_shimmer.dart';
-import '../../../../core/ui/components/read_indicator.dart';
-import '../../../../data/models/dto/shelf_item_dto.dart';
-import '../../../../domain/entities/reading_status.dart';
-import '../blocs/book_options/book_options_bloc.dart';
+import 'book_options_action_button.dart';
+import 'actions/read_meta/read_meta.dart';
 import 'actions/read_history/read_history.dart';
 import 'actions/read_status/change_read_status.dart';
-import 'book_options_action_button.dart';
+import '../blocs/book_options/book_options_bloc.dart';
+import '../../../../core/ui/components/read_indicator.dart';
+import '../../../../core/ui/components/image_with_shimmer.dart';
+import '../../../../data/models/dto/shelf_item_dto.dart';
+import '../../../../domain/entities/reading_status.dart';
+import '../../../../core/config/app_colors.dart';
+import '../../../../core/config/app_values.dart';
 
 class BookOptionsMainView extends StatelessWidget {
   final ShelfItemDto bookItem;
@@ -35,7 +36,7 @@ class BookOptionsMainView extends StatelessWidget {
                     Container(
                       height: 120,
                       decoration: BoxDecoration(
-                        color: Colors.blueGrey.shade100,
+                        color: AppColors.secondaryBackground,
                         borderRadius: BorderRadius.circular(AppSize.s8),
                       ),
                       child: Row(
@@ -61,7 +62,8 @@ class BookOptionsMainView extends StatelessWidget {
                                       color: AppColors.primaryText,
                                     ),
                                   ),
-                                  if (bookItem.readingStatus == ReadingStatus.reading) ...{
+                                  if (bookItem.readingStatus ==
+                                      ReadingStatus.reading) ...{
                                     ReadIndicator(
                                       totalPagesToRead: bookItem.pages,
                                       totalReadPages: bookItem.currentPage,
@@ -108,18 +110,10 @@ class BookOptionsMainView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: AppMargin.m16),
-                          child: BookOptionsActionButton(
-                            context: context,
-                            onTap: () {},
-                            icon: const Icon(
-                              Icons.calendar_month_sharp,
-                            ),
-                            width: widthSize * 0.45,
-                            height: 70,
-                            title: 'Meta de leitura',
-                          ),
+                        ReadMeta(
+                          bloc: bloc,
+                          bookItem: bookItem,
+                          widthSize: widthSize,
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: AppMargin.m16),

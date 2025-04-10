@@ -20,7 +20,7 @@ class ShelfItemRepository implements IShelfItemRepository {
         .collection(FirebaseConstants.bookShelfCollection)
         .doc(userId)
         .collection(FirebaseConstants.booksCollection)
-        .where(FirebaseConstants.bookIdField, isEqualTo: bookId)
+        .where(ShelfItemFields.bookId, isEqualTo: bookId)
         .get()
         .then((value) {
       if (value.docs.isEmpty) {
@@ -29,7 +29,7 @@ class ShelfItemRepository implements IShelfItemRepository {
 
       final doc = value.docs.first;
       doc.reference.update({
-        FirebaseConstants.currentPageField: pagesRead,
+        ShelfItemFields.currentPage: pagesRead,
       });
     });
   }
@@ -46,7 +46,7 @@ class ShelfItemRepository implements IShelfItemRepository {
         .collection(FirebaseConstants.bookShelfCollection)
         .doc(userId)
         .collection(FirebaseConstants.booksCollection)
-        .where(FirebaseConstants.bookIdField, isEqualTo: bookId)
+        .where(ShelfItemFields.bookId, isEqualTo: bookId)
         .get()
         .then((value) {
       if (value.docs.isEmpty) {
@@ -55,9 +55,9 @@ class ShelfItemRepository implements IShelfItemRepository {
 
       final doc = value.docs.first;
       doc.reference.update({
-        FirebaseConstants.currentPageField: status,
-        FirebaseConstants.startDateField: startDate,
-        FirebaseConstants.endDateField: endDate,
+        ShelfItemFields.readingStatus: status.index,
+        ShelfItemFields.startDate: startDate,
+        ShelfItemFields.endDate: endDate,
       });
     });
   }

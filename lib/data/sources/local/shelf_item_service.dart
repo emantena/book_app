@@ -19,13 +19,15 @@ class ShelfItemService extends BaseService implements IShelfItemService {
   Future<ShelfItemDto?> getShelfItemById(String bookId) async {
     final userId = await getUserId();
 
-    ShelfItemDto? shelfItem = await _shelfItemRepository.getShelfItemById(bookId, userId);
+    ShelfItemDto? shelfItem =
+        await _shelfItemRepository.getShelfItemById(bookId, userId);
 
     if (shelfItem == null) {
       return null;
     }
 
-    shelfItem.readHistory.sort((a, b) => (b.pages ?? 0).compareTo(a.pages ?? 0));
+    shelfItem.readHistory
+        .sort((a, b) => (b.pages ?? 0).compareTo(a.pages ?? 0));
 
     return shelfItem;
   }
@@ -34,13 +36,23 @@ class ShelfItemService extends BaseService implements IShelfItemService {
   Future<void> updatePageRead(String bookId) async {
     ShelfItemDto? shelfItem = await getShelfItemById(bookId);
 
-    final maxPageRead = shelfItem?.readHistory.map((e) => e.pages ?? 0).reduce((a, b) => a > b ? a : b) ?? 0;
-
-    if (shelfItem!.currentPage == maxPageRead) {
-      return;
+    int totalPagesRead = 0;
+    int maxPageRead = 0;
+    if (shelfItem!.readingStatus == ReadingStatus.read) {
+      maxPageRead = shelfItem.pages;
     }
 
-    final totalPagesRead = maxPageRead - shelfItem.currentPage;
+    if (shelfItem.readHistory.isNotEmpty) {
+      maxPageRead = shelfItem.readHistory
+          .map((e) => e.pages ?? 0)
+          .reduce((a, b) => a > b ? a : b);
+          
+      if (shelfItem.currentPage == maxPageRead) {
+        return;
+      }
+    }
+
+    totalPagesRead = maxPageRead - shelfItem.currentPage;
 
     final userId = await getUserId();
 
@@ -49,7 +61,8 @@ class ShelfItemService extends BaseService implements IShelfItemService {
   }
 
   @override
-  Future<ShelfItemDto?> updateReadStatus(String bookId, ReadingStatus status) async {
+  Future<ShelfItemDto?> updateReadStatus(
+      String bookId, ReadingStatus status) async {
     final bookDto = await getShelfItemById(bookId);
 
     if (bookDto == null) {
@@ -60,14 +73,19 @@ class ShelfItemService extends BaseService implements IShelfItemService {
       bookDto.startDate = DateTime.now();
     }
 
-    if (bookDto.readingStatus == ReadingStatus.reading && status == ReadingStatus.read) {
+    if (bookDto.readingStatus == ReadingStatus.reading &&
+        status == ReadingStatus.read) {
       bookDto.endDate = DateTime.now();
     }
-
     bookDto.readingStatus = status;
 
     final userId = await getUserId();
-    await _shelfItemRepository.updateReadStatus(bookId, userId, bookDto.startDate, bookDto.endDate, status);
+    await _shelfItemRepository.updateReadStatus(
+        bookId, userId, bookDto.startDate, bookDto.endDate, status);
+
+    if (status == ReadingStatus.read) {
+      await updatePageRead(bookId);
+    }
 
     return bookDto;
   }

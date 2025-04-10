@@ -15,3 +15,7 @@ class LoadBooksByStatus extends BookshelfEvent {
   @override
   List<Object?> get props => [status];
 }
+
+class ToggleReadingGoalVisibility extends BookshelfEvent {
+  const ToggleReadingGoalVisibility();
+}

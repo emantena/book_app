@@ -13,6 +13,7 @@ import '../../../../data/models/dto/shelf_item_dto.dart';
 import '../../../../domain/entities/reading_status.dart';
 import '../widgets/reading_status_bar.dart';
 import '../bloc/bookshelf_bloc.dart';
+import '../widgets/reading_goal_card.dart';
 
 class BookShelveView extends StatefulWidget {
   const BookShelveView({super.key});
@@ -49,7 +50,8 @@ class BookShelveViewState extends State<BookShelveView> {
   }
 
   int getBooksByStatus(List<ShelfItemDto> books, ReadingStatus status) {
-    final totalBooks = books.where((book) => book.readingStatus == status).length;
+    final totalBooks =
+        books.where((book) => book.readingStatus == status).length;
     return totalBooks;
   }
 
@@ -64,10 +66,6 @@ class BookShelveViewState extends State<BookShelveView> {
             const SizedBox(height: 20),
             const ReadingStatusBar(),
             const SizedBox(height: 25),
-            const Divider(
-              height: 2,
-              color: AppColors.secondaryText,
-            ),
             Expanded(
               child: BlocBuilder<BookshelfBloc, BookshelfState>(
                 builder: (context, state) {
@@ -75,7 +73,20 @@ class BookShelveViewState extends State<BookShelveView> {
                     return const Center(child: LoadingIndicator());
                   } else if (state.requestStatus == RequestStatus.loaded) {
                     _updateTotalPages(state.bookshelf);
-                    return _buildBookGrid(context, state.bookshelf);
+
+                    if (state.showReadingGoal) {
+                      return Column(
+                        children: [
+                          ReadingGoalCard(books: state.bookshelf.books),
+                          const SizedBox(height: 20),
+                          Expanded(
+                            child: _buildBookGrid(context, state.bookshelf),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return _buildBookGrid(context, state.bookshelf);
+                    }
                   } else {
                     return const Center(
                       child: Text('Não foi possível carregar a estante'),
@@ -111,7 +122,7 @@ class BookShelveViewState extends State<BookShelveView> {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () => context.pushNamed(
-          AppRoutes.bookDetailRoute,
+          AppRoutes.bookOptionsRoute,
           pathParameters: {'bookId': book.bookId},
         ),
         child: Container(

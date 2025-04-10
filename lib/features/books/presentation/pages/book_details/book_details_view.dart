@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../blocs/book_detail/book_detail_bloc.dart';
 import '../../../../../core/config/app_colors.dart';
 import '../../../../../core/config/app_routes.dart';
 import '../../../../../core/config/app_strings.dart';
@@ -14,7 +15,6 @@ import '../../../../../core/utils/functions.dart';
 import '../../../../../data/models/shelf_item_model.dart';
 import '../../../../../domain/entities/book_detail.dart';
 import '../../../../../domain/entities/reading_status.dart';
-import '../../blocs/book_detail/book_detail_bloc.dart';
 
 class BookDetailsView extends StatefulWidget {
   final String bookId;

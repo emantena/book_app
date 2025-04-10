@@ -27,7 +27,7 @@ class BookOptionsActionButton extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Colors.blueGrey.shade100,
+        color: AppColors.secondaryBackground,
         borderRadius: BorderRadius.circular(AppSize.s8),
       ),
       child: GestureDetector(

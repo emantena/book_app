@@ -1,3 +1,6 @@
+import 'package:book_app/data/models/read_meta_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/reading_status.dart';
 import 'dto/shelf_item_dto.dart';
 import 'read_history_model.dart';
@@ -13,6 +16,7 @@ class ShelfItemModel {
   DateTime? endDate;
   int currentPage;
   List<ReadHistoryModel>? readHistory;
+  ReadMetaModel? readMeta;
 
   ShelfItemModel({
     this.bookId = '',
@@ -24,6 +28,7 @@ class ShelfItemModel {
     this.pages = 0,
     this.currentPage = 0,
     this.readHistory,
+    this.readMeta,
   });
 
   factory ShelfItemModel.fromJson(Map<String, dynamic> json) {
@@ -31,16 +36,23 @@ class ShelfItemModel {
       bookId: json['bookId'] ?? '',
       title: json['title'] ?? '',
       readingStatus: ReadingStatus.values[json['readingStatus'] ?? 0],
-      startDate:
-          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-      endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
+      startDate: json['startDate'] != null
+          ? (json['startDate'] as Timestamp).toDate()
+          : null,
+      endDate: json['endDate'] != null
+          ? (json['endDate'] as Timestamp).toDate()
+          : null,
       imageUrl: json['imageUrl'] ?? '',
       pages: json['pages'] ?? 0,
       currentPage: json['currentPage'] ?? 0,
       readHistory: json['readHistory'] != null
-          ? List<ReadHistoryModel>.from(
-              json['readHistory'].map((x) => ReadHistoryModel.fromJson(x)))
+          ? List<ReadHistoryModel>.from(json['readHistory'].map(
+              (x) => ReadHistoryModel.fromJson(x),
+            ))
           : [],
+      readMeta: json['readMeta'] != null
+          ? ReadMetaModel.fromJson(json['readMeta'])
+          : null,
     );
   }
 
@@ -54,6 +66,7 @@ class ShelfItemModel {
       'pages': pages,
       'currentPage': currentPage,
       'imageUrl': imageUrl,
+      'readMeta': readMeta?.toJson(),
     };
   }
 
@@ -68,6 +81,7 @@ class ShelfItemModel {
       pages: p.pages,
       currentPage: p.currentPage,
       readHistory: [],
+      readMeta: p.readMeta,
     );
   }
 }

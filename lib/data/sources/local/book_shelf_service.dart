@@ -1,3 +1,5 @@
+import 'package:book_app/domain/interfaces/services/i_shelf_item_service.dart';
+
 import '../../../domain/entities/reading_status.dart';
 import '../../../domain/interfaces/services/i_book_shelf_service.dart';
 import '../../models/dto/book_shelf_dto.dart';
@@ -7,8 +9,10 @@ import 'base_service.dart';
 
 class BookShelfService extends BaseService implements IBookShelfService {
   final IBookShelfRepository _bookShelfRepository;
+  final IShelfItemService _shelfItemService;
 
-  BookShelfService(super.userRepository, this._bookShelfRepository);
+  BookShelfService(
+      super.userRepository, this._bookShelfRepository, this._shelfItemService);
 
   @override
   Future<bool> addBook(ShelfItemModel shelfItem) async {
@@ -24,16 +28,13 @@ class BookShelfService extends BaseService implements IBookShelfService {
     final bookShelf = await _bookShelfRepository.getBookShelf(userId);
 
     if (bookShelf.books.any((b) => b.bookId == shelfItem.bookId)) {
-      final book =
-          bookShelf.books.firstWhere((b) => b.bookId == shelfItem.bookId);
-
-      if (book.readingStatus == shelfItem.readingStatus) {
-        return false;
-      }
-
-      await _bookShelfRepository.updateBook(shelfItem, userId);
+      return false;
     } else {
       await _bookShelfRepository.addBook(shelfItem, userId);
+    }
+
+    if (shelfItem.readingStatus == ReadingStatus.read) {
+      await _shelfItemService.updatePageRead(shelfItem.bookId);
     }
 
     return true;

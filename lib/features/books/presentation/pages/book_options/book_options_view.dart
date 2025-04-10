@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/ui/components/loading_indicator.dart';
-import '../../../../../core/utils/enum_types.dart';
+import '../../blocs/book_options/book_options_bloc.dart';
 import '../../widgets/book_options_app_bar.dart';
 import '../../widgets/book_options_main_view.dart';
-import '../../blocs/book_options/book_options_bloc.dart';
+import '../../../../../core/utils/enum_types.dart';
+import '../../../../../core/ui/components/loading_indicator.dart';
 
 class BookOptionsView extends StatefulWidget {
   final String bookId;

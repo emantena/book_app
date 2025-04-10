@@ -11,6 +11,7 @@ class AppRoutes {
   static const String searchRoute = 'search';
   static const String bookDetailRoute = 'bookDetail';
   static const String bookOptionsRoute = 'bookOptions';
+  static const String yearlyGoalsRoute = 'yearlyGoals';
 
   // Bookshelves Routes
   static const String bookshelveRoute = 'bookshelve';

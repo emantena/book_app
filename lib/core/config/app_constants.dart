@@ -7,15 +7,21 @@ class FirebaseConstants {
   static const String bookShelfCollection = 'book_shelf';
   static const String readHistoryCollection = 'readHistory';
   static const String booksCollection = 'books';
-  static const String userIdField = 'userId';
-  static const String readHistoryField = 'readHistory';
 
-  static const String currentPageField = 'currentPage';
-  static const String bookIdField = 'bookId';
-  static const String noteField = 'note';
-  static const String pagesField = 'page';
   static const String percentageField = 'percentage';
   static const String dateReadField = 'dateRead';
-  static const String startDateField = 'startDate';
-  static const String endDateField = 'endDate';
+}
+
+class ShelfItemFields {
+  static const String bookId = 'bookId';
+  static const String imageUrl = 'imageUrl';
+  static const String pages = 'pages';
+  static const String title = 'title';
+  static const String readingStatus = 'readingStatus';
+  static const String startDate = 'startDate';
+  static const String endDate = 'endDate';
+  static const String currentPage = 'currentPage';
+  static const String readHistory = 'readHistory';
+  static const String readMeta = 'readMeta';
+  static const String note = 'note';
 }

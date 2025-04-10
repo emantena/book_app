@@ -32,8 +32,7 @@ class SetReadHistoryEvent extends BookOptionsEvent {
   final int? percentRead;
   final String? id;
 
-  const SetReadHistoryEvent(
-      this.bookId, this.pagesRead, this.percentRead, this.id);
+  const SetReadHistoryEvent(this.bookId, this.pagesRead, this.percentRead, this.id);
 
   @override
   List<Object?> get props => [pagesRead, percentRead, bookId];
@@ -60,20 +59,42 @@ class AddReadDateEvent extends BookOptionsEvent {
   List<Object?> get props => [startDate, endDate, bookId];
 }
 
-class SetReadMetaEvent extends BookOptionsEvent {
-  final String bookId;
-  final int yearToRead;
+// class SetReadMetaEvent extends BookOptionsEvent {
+//   final String bookId;
+//   final int yearToRead;
 
-  const SetReadMetaEvent(this.yearToRead, this.bookId);
+//   const SetReadMetaEvent(this.yearToRead, this.bookId);
 
-  @override
-  List<Object?> get props => [yearToRead, bookId];
-}
+//   @override
+//   List<Object?> get props => [yearToRead, bookId];
+// }
 
 class RemoveBookEvent extends BookOptionsEvent {
   final String bookId;
 
   const RemoveBookEvent(this.bookId);
+
+  @override
+  List<Object?> get props => [bookId];
+}
+
+class SetReadMetaEvent extends BookOptionsEvent {
+  final String bookId;
+  final int? targetYear;
+
+  const SetReadMetaEvent({
+    required this.bookId,
+    required this.targetYear,
+  });
+
+  @override
+  List<Object?> get props => [bookId, targetYear];
+}
+
+class RemoveReadMetaEvent extends BookOptionsEvent {
+  final String bookId;
+
+  const RemoveReadMetaEvent(this.bookId);
 
   @override
   List<Object?> get props => [bookId];

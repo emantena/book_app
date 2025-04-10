@@ -29,8 +29,7 @@ class ReadHistoryRepository implements IReadHistoryRepository {
 
       final doc = value.docs.first;
       doc.reference.update({
-        FirebaseConstants.readHistoryField:
-            FieldValue.arrayUnion([history.toJson()])
+        ShelfItemFields.readHistory: FieldValue.arrayUnion([history.toJson()])
       });
     });
   }
@@ -61,7 +60,7 @@ class ReadHistoryRepository implements IReadHistoryRepository {
         throw const DatabaseFailure('ReadHistory not found');
       }
 
-      readHistory[index][FirebaseConstants.pagesField] = currentPage;
+      readHistory[index][ShelfItemFields.pages] = currentPage;
       readHistory[index][FirebaseConstants.percentageField] = currentPercent;
 
       await doc.reference.update({
@@ -77,7 +76,7 @@ class ReadHistoryRepository implements IReadHistoryRepository {
         .collection(FirebaseConstants.bookShelfCollection)
         .doc(userId)
         .collection(FirebaseConstants.booksCollection)
-        .where(FirebaseConstants.bookIdField, isEqualTo: bookId)
+        .where(ShelfItemFields.bookId, isEqualTo: bookId)
         .get()
         .then((value) => value.docs.first);
 
