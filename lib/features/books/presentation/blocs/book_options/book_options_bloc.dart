@@ -4,14 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/enum_types.dart';
 import '../../../../../core/utils/functions.dart';
+import '../../../../../data/models/dto/add_read_data_dto.dart';
 import '../../../../../data/models/request/change_read_status_request.dart';
 import '../../../../../data/models/dto/read_history_dto.dart';
 import '../../../../../data/models/request/remove_read_history_request.dart';
 import '../../../../../data/models/dto/shelf_item_dto.dart';
 import '../../../../../domain/entities/reading_status.dart';
+import '../../../../../domain/usecases/add_read_data_usecase.dart';
 import '../../../../../domain/usecases/change_read_status_usecase.dart';
 import '../../../../../domain/usecases/delete_read_history_usecase.dart';
 import '../../../../../domain/usecases/load_book_usecase.dart';
+import '../../../../../domain/usecases/remove_book_usecase.dart';
 import '../../../../../domain/usecases/remove_read_meta_usecase.dart';
 import '../../../../../domain/usecases/set_read_history_usecase.dart';
 import '../../../../../domain/usecases/set_read_meta_usecase.dart';
@@ -26,6 +29,8 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
   final DeleteReadHistoryUsecase _deleteReadHistoryUsecase;
   final SetReadMetaUsecase _setReadMetaUsecase;
   final RemoveReadMetaUsecase _removeReadMetaUsecase;
+  final AddReadDataUsecase _addReadDateUsecase;
+  final RemoveBookUsecase _removeBookUsecase;
 
   BookOptionsBloc(
     this._loadBookUsecase,
@@ -34,6 +39,8 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     this._deleteReadHistoryUsecase,
     this._setReadMetaUsecase,
     this._removeReadMetaUsecase,
+    this._addReadDateUsecase,
+    this._removeBookUsecase,
   ) : super(const BookOptionsState()) {
     on<LoadBookEvent>(_onLoadBookEvent);
     on<ChangeReadingStatusEvent>(_onChangeReadingStatusEvent);
@@ -45,7 +52,8 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     on<SetReadMetaEvent>(_onSetReadMetaEvent);
   }
 
-  Future<void> _onLoadBookEvent(LoadBookEvent event, Emitter<BookOptionsState> emit) async {
+  Future<void> _onLoadBookEvent(
+      LoadBookEvent event, Emitter<BookOptionsState> emit) async {
     emit(
       state.copyWith(requestStatus: RequestStatus.loading),
     );
@@ -68,7 +76,8 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     });
   }
 
-  Future<void> _onChangeReadingStatusEvent(ChangeReadingStatusEvent event, Emitter<BookOptionsState> emit) async {
+  Future<void> _onChangeReadingStatusEvent(
+      ChangeReadingStatusEvent event, Emitter<BookOptionsState> emit) async {
     var result = await _changeReadingStatusUsecase(
       ChangeReadStatusRequest(
         bookId: event.bookId,
@@ -94,14 +103,16 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     );
   }
 
-  Future<void> _onSetReadHistoryEvent(SetReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
+  Future<void> _onSetReadHistoryEvent(
+      SetReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
     String? id = event.id;
 
     if (event.id == null) {
       id = generateUniqueId();
     }
 
-    final dto = ReadHistoryDto(event.bookId, id, DateTime.now(), event.pagesRead, event.percentRead, null);
+    final dto = ReadHistoryDto(event.bookId, id, DateTime.now(),
+        event.pagesRead, event.percentRead, null);
 
     final result = await _readHistoryUsecase(dto);
 
@@ -123,8 +134,10 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     );
   }
 
-  Future<void> _onDeleteReadHistoryEvent(DeleteReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
-    final result = await _deleteReadHistoryUsecase(RemoveReadHistoryRequest(event.bookId, event.historyId));
+  Future<void> _onDeleteReadHistoryEvent(
+      DeleteReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
+    final result = await _deleteReadHistoryUsecase(
+        RemoveReadHistoryRequest(event.bookId, event.historyId));
 
     result.fold(
       (l) => emit(
@@ -144,7 +157,8 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     );
   }
 
-  Future<void> _onSetReadMetaEvent(SetReadMetaEvent event, Emitter<BookOptionsState> emit) async {
+  Future<void> _onSetReadMetaEvent(
+      SetReadMetaEvent event, Emitter<BookOptionsState> emit) async {
     final params = SetReadMetaParams(
       bookId: event.bookId,
       targetYear: event.targetYear,
@@ -166,7 +180,12 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
     );
   }
 
-  Future<void> _onRemoveReadMetaEvent(RemoveReadMetaEvent event, Emitter<BookOptionsState> emit) async {
+  Future<void> _onRemoveReadMetaEvent(
+      RemoveReadMetaEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(requestStatus: RequestStatus.loading),
+    );
+
     final result = await _removeReadMetaUsecase(event.bookId);
 
     result.fold(
@@ -177,13 +196,61 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         ),
       ),
       (r) {
-        // Reload the book to get updated data
         add(LoadBookEvent(event.bookId));
       },
     );
   }
 
-  FutureOr<void> _onAddReadDateEvent(AddReadDateEvent event, Emitter<BookOptionsState> emit) {}
+  Future<void> _onAddReadDateEvent(
+      AddReadDateEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(requestStatus: RequestStatus.loading),
+    );
 
-  FutureOr<void> _onRemoveBookEvent(RemoveBookEvent event, Emitter<BookOptionsState> emit) {}
+    final params =
+        AddReadDataDto(bookId: event.bookId, readDate: event.endDate);
+
+    final result = await _addReadDateUsecase(params);
+
+    result.fold(
+      (l) => emit(
+        state.copyWith(
+          errorMessage: l.message,
+          requestStatus: RequestStatus.error,
+        ),
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            requestStatus: RequestStatus.loaded,
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onRemoveBookEvent(
+      RemoveBookEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(requestStatus: RequestStatus.loading),
+    );
+
+    final result = await _removeBookUsecase(event.bookId);
+
+    result.fold(
+      (l) => emit(
+        state.copyWith(
+          errorMessage: l.message,
+          requestStatus: RequestStatus.error,
+        ),
+      ),
+      (r) {
+        emit(
+          state.copyWith(
+            requestStatus: RequestStatus.loaded,
+          ),
+        );
+      },
+    );
+  }
 }

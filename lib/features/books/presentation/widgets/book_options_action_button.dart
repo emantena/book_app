@@ -10,6 +10,7 @@ class BookOptionsActionButton extends StatelessWidget {
   final double width;
   final double height;
   final String title;
+  final bool isEnabled;
 
   const BookOptionsActionButton({
     super.key,
@@ -19,10 +20,14 @@ class BookOptionsActionButton extends StatelessWidget {
     required this.width,
     required this.height,
     required this.title,
+    this.isEnabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final Color textColor =
+        isEnabled ? AppColors.primaryText : AppColors.disabledText;
+
     return Container(
       width: width,
       height: height,
@@ -43,9 +48,9 @@ class BookOptionsActionButton extends StatelessWidget {
               title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: AppSize.s16,
-                color: AppColors.primaryText,
+                color: textColor,
               ),
             ),
           ],

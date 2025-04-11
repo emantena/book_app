@@ -46,7 +46,7 @@ class ShelfItemService extends BaseService implements IShelfItemService {
       maxPageRead = shelfItem.readHistory
           .map((e) => e.pages ?? 0)
           .reduce((a, b) => a > b ? a : b);
-          
+
       if (shelfItem.currentPage == maxPageRead) {
         return;
       }
@@ -88,5 +88,32 @@ class ShelfItemService extends BaseService implements IShelfItemService {
     }
 
     return bookDto;
+  }
+
+  @override
+  Future<void> addReadData(String bookId, DateTime endDate) async {
+    final userId = await getUserId();
+
+    ShelfItemDto? shelfItem = await getShelfItemById(bookId);
+    if (shelfItem == null) {
+      throw Exception('Livro não encontrado');
+    }
+
+    await _shelfItemRepository.updateReadDate(bookId, userId, endDate);
+  }
+
+  @override
+  Future<void> addRemoveBook(String bookId) async {
+    final userId = await getUserId();
+
+    ShelfItemDto? shelfItem = await getShelfItemById(bookId);
+    if (shelfItem == null) {
+      throw Exception('Livro não encontrado');
+    }
+
+    await _bookShelfRepository.updatePagesRead(
+        userId, shelfItem.currentPage * (-1));
+
+    await _shelfItemRepository.removeBook(bookId, userId);
   }
 }

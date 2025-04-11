@@ -9,11 +9,13 @@ import '../../../domain/interfaces/repositories/i_book_detail_repository.dart';
 import '../../../domain/interfaces/repositories/i_read_meta_repository.dart';
 import '../../../domain/interfaces/services/i_read_meta_service.dart';
 import '../../../domain/usecases/add_book_shelf_usecase.dart';
+import '../../../domain/usecases/add_read_data_usecase.dart';
 import '../../../domain/usecases/change_read_status_usecase.dart';
 import '../../../domain/usecases/delete_read_history_usecase.dart';
 import '../../../domain/usecases/get_book_details_usecase.dart';
 import '../../../domain/usecases/get_books_by_year_target_usecase.dart';
 import '../../../domain/usecases/load_book_usecase.dart';
+import '../../../domain/usecases/remove_book_usecase.dart';
 import '../../../domain/usecases/remove_read_meta_usecase.dart';
 import '../../../domain/usecases/set_read_history_usecase.dart';
 import '../../../domain/usecases/set_read_meta_usecase.dart';
@@ -56,12 +58,24 @@ class BookDiModule {
     sl.registerLazySingleton(() => SetReadMetaUsecase(sl(), sl()));
     sl.registerLazySingleton(() => RemoveReadMetaUsecase(sl(), sl()));
     sl.registerLazySingleton(() => GetBooksByYearTargetUsecase(sl()));
+    sl.registerLazySingleton(() => AddReadDataUsecase(sl()));
+    sl.registerLazySingleton(() => RemoveBookUsecase(sl()));
 
     // Blocs
     sl.registerFactory(() => BookDetailBloc(sl(), sl()));
     sl.registerFactory(() => BookshelfBloc(sl(), sl()));
     sl.registerFactory(
-        () => BookOptionsBloc(sl(), sl(), sl(), sl(), sl(), sl()));
+      () => BookOptionsBloc(
+        sl(),
+        sl(),
+        sl(),
+        sl(),
+        sl(),
+        sl(),
+        sl(),
+        sl(),
+      ),
+    );
     sl.registerFactory(() => YearlyGoalsBloc(sl()));
   }
 }

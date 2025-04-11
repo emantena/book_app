@@ -1,8 +1,10 @@
+import 'package:book_app/features/books/presentation/widgets/actions/read_date/read_date.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
-import 'book_options_action_button.dart';
 import 'actions/read_meta/read_meta.dart';
+import 'actions/remove_book/remove_book.dart';
 import 'actions/read_history/read_history.dart';
 import 'actions/read_status/change_read_status.dart';
 import '../blocs/book_options/book_options_bloc.dart';
@@ -62,6 +64,16 @@ class BookOptionsMainView extends StatelessWidget {
                                       color: AppColors.primaryText,
                                     ),
                                   ),
+                                  if (bookItem.endDate != null) ...[
+                                    const SizedBox(height: AppSize.s4),
+                                    Text(
+                                      'Finalizado em: ${DateFormat('dd/MM/yyyy').format(bookItem.endDate!)}',
+                                      style: const TextStyle(
+                                        fontSize: AppSize.s14,
+                                        color: AppColors.secondaryText,
+                                      ),
+                                    ),
+                                  ],
                                   if (bookItem.readingStatus ==
                                       ReadingStatus.reading) ...{
                                     ReadIndicator(
@@ -115,34 +127,20 @@ class BookOptionsMainView extends StatelessWidget {
                           bookItem: bookItem,
                           widthSize: widthSize,
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: AppMargin.m16),
-                          child: BookOptionsActionButton(
-                            context: context,
-                            icon: const Icon(Icons.event_available_rounded),
-                            onTap: () {},
-                            width: widthSize * 0.45,
-                            height: 70,
-                            title: 'Data de Leitura',
-                          ),
+                        ReadDate(
+                          bloc: bloc,
+                          bookItem: bookItem,
+                          widthSize: widthSize,
                         ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(top: AppMargin.m16),
-                          child: BookOptionsActionButton(
-                            context: context,
-                            onTap: () {},
-                            icon: const Icon(
-                              Icons.delete_forever_outlined,
-                            ),
-                            width: widthSize * 0.9,
-                            height: 70,
-                            title: 'Remover',
-                          ),
+                        RemoveBook(
+                          bloc: bloc,
+                          bookItem: bookItem,
+                          widthSize: widthSize,
                         ),
                       ],
                     )

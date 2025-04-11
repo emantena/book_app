@@ -25,4 +25,6 @@ class AppColors {
   static const rereading = Color.fromARGB(255, 236, 122, 16);
   static const abandoned = Color.fromARGB(255, 37, 37, 37);
   static const all = Colors.purpleAccent;
+
+  static var disabledText = Colors.grey.shade400;
 }

@@ -1,6 +1,7 @@
 // lib/core/app/app_module.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../config/app_strings.dart';
 import '../config/app_theme.dart';
@@ -26,6 +27,16 @@ class AppModule extends StatelessWidget {
         title: AppStrings.appTitle,
         theme: getApplicationTheme(),
         routerConfig: appRouter.router,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('pt', 'BR'),
+        ],
+        locale: const Locale('pt', 'BR'),
       ),
     );
   }

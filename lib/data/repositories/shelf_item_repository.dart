@@ -111,4 +111,43 @@ class ShelfItemRepository implements IShelfItemRepository {
         )
         .toList();
   }
+
+  @override
+  Future<void> updateReadDate(
+      String bookId, String userId, DateTime endDate) async {
+    return await _firestore
+        .collection(FirebaseConstants.bookShelfCollection)
+        .doc(userId)
+        .collection(FirebaseConstants.booksCollection)
+        .where(ShelfItemFields.bookId, isEqualTo: bookId)
+        .get()
+        .then((value) {
+      if (value.docs.isEmpty) {
+        throw const DatabaseFailure('Book not found');
+      }
+
+      final doc = value.docs.first;
+      doc.reference.update({
+        ShelfItemFields.endDate: endDate,
+      });
+    });
+  }
+
+  @override
+  Future<void> removeBook(String bookId, String userId) {
+    return _firestore
+        .collection(FirebaseConstants.bookShelfCollection)
+        .doc(userId)
+        .collection(FirebaseConstants.booksCollection)
+        .where(ShelfItemFields.bookId, isEqualTo: bookId)
+        .get()
+        .then((value) {
+      if (value.docs.isEmpty) {
+        throw const DatabaseFailure('Book not found');
+      }
+
+      final doc = value.docs.first;
+      doc.reference.delete();
+    });
+  }
 }

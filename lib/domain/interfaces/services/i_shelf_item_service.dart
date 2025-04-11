@@ -6,4 +6,6 @@ abstract class IShelfItemService {
 
   Future<void> updatePageRead(String bookId);
   Future<ShelfItemDto?> updateReadStatus(String bookId, ReadingStatus status);
+  Future<void> addReadData(String bookId, DateTime endDate);
+  Future<void> addRemoveBook(String bookId);
 }
