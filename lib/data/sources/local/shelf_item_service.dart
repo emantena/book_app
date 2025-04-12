@@ -111,6 +111,7 @@ class ShelfItemService extends BaseService implements IShelfItemService {
       throw Exception('Livro não encontrado');
     }
 
+    //indica uma remoção de páginas
     await _bookShelfRepository.updatePagesRead(
         userId, shelfItem.currentPage * (-1));
 

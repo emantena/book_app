@@ -1,3 +1,4 @@
+import 'package:book_app/core/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,6 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
     if (index < 6) {
       context.read<BookshelfBloc>().add(LoadBooksByStatus(status));
     } else {
-      // Notificar o componente pai para exibir as metas na mesma tela
       context.read<BookshelfBloc>().add(const ToggleReadingGoalVisibility());
     }
   }
@@ -35,7 +35,6 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
     const double spaceBetweenAnimateIcon = 18;
     const double iconSize = 32;
 
-    // Removing the Center widget and simplifying the layout
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Padding(
@@ -113,9 +112,9 @@ class _ReadingStatusBarState extends State<ReadingStatusBar> {
               index: 6,
               readingStatus: null,
               icon: const Icon(
-                Icons.bar_chart_sharp,
+                Icons.emoji_events,
                 size: iconSize,
-                color: Color.fromARGB(255, 164, 193, 243),
+                color: AppColors.primary,
               ),
             ),
           ],

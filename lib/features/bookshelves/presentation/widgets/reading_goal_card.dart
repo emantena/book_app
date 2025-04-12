@@ -1,4 +1,3 @@
-import 'package:book_app/core/config/app_values.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -15,8 +14,12 @@ class ReadingGoalCard extends StatelessWidget {
     final List<ShelfItemDto> booksRead = books
         .where((book) => book.readingStatus == ReadingStatus.read)
         .toList();
+
     final int yearlyGoal = books.length;
-    final double percentage = booksRead.length / yearlyGoal;
+
+    final double percentage = booksRead.isEmpty
+        ? 0.0
+        : (booksRead.length / yearlyGoal).clamp(0.0, 1.0);
 
     final totalPagesRead = booksRead.fold<int>(0, (sum, book) {
       return sum + (book.pages);
@@ -26,7 +29,8 @@ class ReadingGoalCard extends StatelessWidget {
       return sum + (book.pages);
     });
 
-    final double percentagePages = totalPagesRead / totalPages;
+    final double percentagePages =
+        totalPages == 0 ? 0.0 : (totalPagesRead / totalPages).clamp(0.0, 1.0);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -49,7 +53,7 @@ class ReadingGoalCard extends StatelessWidget {
             Row(
               children: [
                 const Icon(
-                  Icons.menu_book,
+                  Icons.track_changes,
                   color: AppColors.primary,
                 ),
                 const SizedBox(width: 10),
@@ -65,7 +69,7 @@ class ReadingGoalCard extends StatelessWidget {
                 CircularPercentIndicator(
                   radius: 25.0,
                   lineWidth: 5.0,
-                  percent: percentage.clamp(0.0, 1.0),
+                  percent: percentage,
                   center: Text(
                     '${(percentage * 100).toInt()}%',
                     style: const TextStyle(
@@ -79,7 +83,7 @@ class ReadingGoalCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: AppSize.s16),
+            const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -100,12 +104,12 @@ class ReadingGoalCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: AppSize.s16),
+            const SizedBox(height: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 LinearProgressIndicator(
-                  value: percentagePages.clamp(0.0, 1.0),
+                  value: percentagePages,
                   backgroundColor: AppColors.inactiveColor,
                   color: AppColors.primary,
                   minHeight: 8.0,

@@ -55,7 +55,10 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
   Future<void> _onLoadBookEvent(
       LoadBookEvent event, Emitter<BookOptionsState> emit) async {
     emit(
-      state.copyWith(requestStatus: RequestStatus.loading),
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.loadBook,
+      ),
     );
 
     final result = await _loadBookUsecase(event.bookId);
@@ -65,12 +68,14 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
               state.copyWith(
                 errorMessage: l.message,
                 requestStatus: RequestStatus.error,
+                operationType: OperationType.loadBook,
               ),
             ), (r) {
       emit(
         state.copyWith(
           requestStatus: RequestStatus.loaded,
           bookItem: r,
+          operationType: OperationType.loadBook,
         ),
       );
     });
@@ -78,6 +83,13 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
 
   Future<void> _onChangeReadingStatusEvent(
       ChangeReadingStatusEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.changeStatus,
+      ),
+    );
+
     var result = await _changeReadingStatusUsecase(
       ChangeReadStatusRequest(
         bookId: event.bookId,
@@ -90,6 +102,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.changeStatus,
         ),
       ),
       (r) {
@@ -97,6 +110,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
           state.copyWith(
             requestStatus: RequestStatus.loaded,
             bookItem: r,
+            operationType: OperationType.changeStatus,
           ),
         );
       },
@@ -105,6 +119,13 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
 
   Future<void> _onSetReadHistoryEvent(
       SetReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.addHistory,
+      ),
+    );
+
     String? id = event.id;
 
     if (event.id == null) {
@@ -121,6 +142,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.addHistory,
         ),
       ),
       (r) {
@@ -128,6 +150,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
           state.copyWith(
             requestStatus: RequestStatus.loaded,
             bookItem: r,
+            operationType: OperationType.addHistory,
           ),
         );
       },
@@ -136,6 +159,13 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
 
   Future<void> _onDeleteReadHistoryEvent(
       DeleteReadHistoryEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.removeHistory,
+      ),
+    );
+
     final result = await _deleteReadHistoryUsecase(
         RemoveReadHistoryRequest(event.bookId, event.historyId));
 
@@ -144,6 +174,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.removeHistory,
         ),
       ),
       (r) {
@@ -151,6 +182,7 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
           state.copyWith(
             requestStatus: RequestStatus.loaded,
             bookItem: r,
+            operationType: OperationType.removeHistory,
           ),
         );
       },
@@ -159,6 +191,13 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
 
   Future<void> _onSetReadMetaEvent(
       SetReadMetaEvent event, Emitter<BookOptionsState> emit) async {
+    emit(
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.setReadMeta,
+      ),
+    );
+
     final params = SetReadMetaParams(
       bookId: event.bookId,
       targetYear: event.targetYear,
@@ -171,10 +210,16 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.setReadMeta,
         ),
       ),
       (r) {
-        // Reload the book to get updated data
+        emit(
+          state.copyWith(
+            requestStatus: RequestStatus.loaded,
+            operationType: OperationType.setReadMeta,
+          ),
+        );
         add(LoadBookEvent(event.bookId));
       },
     );
@@ -183,7 +228,10 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
   Future<void> _onRemoveReadMetaEvent(
       RemoveReadMetaEvent event, Emitter<BookOptionsState> emit) async {
     emit(
-      state.copyWith(requestStatus: RequestStatus.loading),
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.removeReadMeta,
+      ),
     );
 
     final result = await _removeReadMetaUsecase(event.bookId);
@@ -193,9 +241,16 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.removeReadMeta,
         ),
       ),
       (r) {
+        emit(
+          state.copyWith(
+            requestStatus: RequestStatus.loaded,
+            operationType: OperationType.removeReadMeta,
+          ),
+        );
         add(LoadBookEvent(event.bookId));
       },
     );
@@ -204,7 +259,10 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
   Future<void> _onAddReadDateEvent(
       AddReadDateEvent event, Emitter<BookOptionsState> emit) async {
     emit(
-      state.copyWith(requestStatus: RequestStatus.loading),
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.addReadDate,
+      ),
     );
 
     final params =
@@ -217,12 +275,14 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.addReadDate,
         ),
       ),
       (r) {
         emit(
           state.copyWith(
             requestStatus: RequestStatus.loaded,
+            operationType: OperationType.addReadDate,
           ),
         );
       },
@@ -232,7 +292,10 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
   FutureOr<void> _onRemoveBookEvent(
       RemoveBookEvent event, Emitter<BookOptionsState> emit) async {
     emit(
-      state.copyWith(requestStatus: RequestStatus.loading),
+      state.copyWith(
+        requestStatus: RequestStatus.loading,
+        operationType: OperationType.removeBook,
+      ),
     );
 
     final result = await _removeBookUsecase(event.bookId);
@@ -242,12 +305,15 @@ class BookOptionsBloc extends Bloc<BookOptionsEvent, BookOptionsState> {
         state.copyWith(
           errorMessage: l.message,
           requestStatus: RequestStatus.error,
+          operationType: OperationType.removeBook,
         ),
       ),
       (r) {
         emit(
           state.copyWith(
             requestStatus: RequestStatus.loaded,
+            bookItem: null,
+            operationType: OperationType.removeBook,
           ),
         );
       },
