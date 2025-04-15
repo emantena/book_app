@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../core/config/app_routes.dart';
+import '../../../../../../core/ui/routes/app_routes.dart';
 import '../../../../../../core/config/app_strings.dart';
 import '../../../../../../core/ui/components/logo.dart';
 import '../../../blocs/sign_in/sign_in_cubit.dart';

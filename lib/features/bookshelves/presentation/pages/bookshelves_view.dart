@@ -9,7 +9,7 @@ import '../widgets/reading_status_bar.dart';
 import '../../../../core/utils/functions.dart';
 import '../../../../core/utils/enum_types.dart';
 import '../../../../core/config/app_colors.dart';
-import '../../../../core/config/app_routes.dart';
+import '../../../../core/ui/routes/app_routes.dart';
 import '../../../../data/models/dto/book_shelf_dto.dart';
 import '../../../../data/models/dto/shelf_item_dto.dart';
 import '../../../../domain/entities/reading_status.dart';
@@ -73,7 +73,8 @@ class BookShelveViewState extends State<BookShelveView> {
   }
 
   int getBooksByStatus(List<ShelfItemDto> books, ReadingStatus status) {
-    final totalBooks = books.where((book) => book.readingStatus == status).length;
+    final totalBooks =
+        books.where((book) => book.readingStatus == status).length;
     return totalBooks;
   }
 
@@ -203,7 +204,8 @@ class BookShelveViewState extends State<BookShelveView> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),

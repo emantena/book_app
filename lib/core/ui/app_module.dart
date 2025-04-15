@@ -7,7 +7,7 @@ import '../config/app_strings.dart';
 import '../config/app_theme.dart';
 import '../di/dependency_provider.dart';
 import '../di/di_setup.dart';
-import 'app_router.dart';
+import 'routes/app_router.dart';
 
 /// Widget principal da aplicação que configura o MaterialApp
 class AppModule extends StatelessWidget {

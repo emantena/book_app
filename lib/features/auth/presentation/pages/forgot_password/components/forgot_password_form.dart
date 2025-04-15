@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'forgot_password_button.dart';
 import 'forgot_password_input_email.dart';
 import '../../../blocs/forgot_password/forgot_password_cubit.dart';
-import '../../../../../../core/config/app_routes.dart';
+import '../../../../../../core/ui/routes/app_routes.dart';
 import '../../../../../../core/config/app_values.dart';
 import '../../../../../../core/ui/components/logo.dart';
 import '../../../../../../core/ui/components/primary_button.dart';

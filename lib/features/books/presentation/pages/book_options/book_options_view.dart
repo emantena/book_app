@@ -7,7 +7,7 @@ import '../../widgets/book_options_app_bar.dart';
 import '../../widgets/book_options_main_view.dart';
 import '../../../../../core/utils/enum_types.dart';
 import '../../../../../core/ui/components/loading_indicator.dart';
-import '../../../../../core/config/app_routes.dart';
+import '../../../../../core/ui/routes/app_routes.dart';
 
 class BookOptionsView extends StatefulWidget {
   final String bookId;

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../blocs/book_detail/book_detail_bloc.dart';
 import '../../../../../core/config/app_colors.dart';
-import '../../../../../core/config/app_routes.dart';
+import '../../../../../core/ui/routes/app_routes.dart';
 import '../../../../../core/config/app_strings.dart';
 import '../../../../../core/config/app_values.dart';
 import '../../../../../core/ui/components/circle_dot.dart';

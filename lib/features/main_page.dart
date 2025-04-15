@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/config/app_routes.dart';
+import '../core/ui/routes/app_path.dart';
+import '../core/ui/routes/app_routes.dart';
 import '../core/config/app_strings.dart';
 import '../core/config/app_values.dart';
-import '../core/ui/app_router.dart';
 
 class MainPage extends StatefulWidget {
   final Widget child;
@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
         child: widget.child,
         onPopInvokedWithResult: (didPop, result) async {
           final String location = GoRouterState.of(context).uri.toString();
-          if (!location.startsWith(homePath)) {
+          if (!location.startsWith(AppPath.homePath)) {
             _onItemTapped(0, context);
           }
           return;
@@ -72,19 +72,19 @@ class _MainPageState extends State<MainPage> {
 
   int _getSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.path;
-    if (location.startsWith(homePath)) {
+    if (location.startsWith(AppPath.homePath)) {
       return 0;
     }
 
-    if (location.startsWith(searchPath)) {
+    if (location.startsWith(AppPath.searchPath)) {
       return 1;
     }
 
-    if (location.startsWith(bookshelvePath)) {
+    if (location.startsWith(AppPath.bookshelvePath)) {
       return 2;
     }
 
-    if (location.startsWith(profilePath)) {
+    if (location.startsWith(AppPath.profilePath)) {
       return 3;
     }
 

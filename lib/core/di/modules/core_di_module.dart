@@ -10,7 +10,7 @@ import '../../config/environment_config.dart';
 import '../../config/environment_provider.dart';
 import '../../network/network_info.dart';
 import '../../storage/cache_client.dart';
-import '../../ui/app_router.dart';
+import '../../ui/routes/app_router.dart';
 
 class CoreDiModule {
   static Future<void> init(GetIt sl) async {

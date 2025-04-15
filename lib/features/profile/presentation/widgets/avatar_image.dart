@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/config/app_colors.dart';
-import '../../../../core/config/app_routes.dart';
+import '../../../../core/ui/routes/app_routes.dart';
 import '../../../../core/config/app_values.dart';
 
 class AvatarImage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../config/app_routes.dart';
+import '../routes/app_routes.dart';
 import '../../config/app_values.dart';
 import 'circle_dot.dart';
 import 'image_with_shimmer.dart';

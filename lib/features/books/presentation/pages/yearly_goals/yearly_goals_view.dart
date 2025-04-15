@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/config/app_colors.dart';
-import '../../../../../core/config/app_routes.dart';
+import '../../../../../core/ui/routes/app_routes.dart';
 import '../../../../../core/ui/components/image_with_shimmer.dart';
 import '../../../../../core/ui/components/loading_indicator.dart';
 import '../../../../../core/utils/enum_types.dart';

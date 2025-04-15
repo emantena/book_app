@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../core/config/app_routes.dart';
+import '../../../../../../core/ui/routes/app_routes.dart';
 import '../../../../../../core/config/app_values.dart';
 import '../../../../../../core/ui/components/logo.dart';
 import '../../../../../../core/ui/components/primary_button.dart';
